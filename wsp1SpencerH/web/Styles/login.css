@@ -21,7 +21,7 @@ div.vc {
 div.login {
   width:8cm;
   margin:auto;
-  border: 2px solid black;
+  border:0.1cm solid black;
 }
 div.login h1 {
   font-size:x-large;
