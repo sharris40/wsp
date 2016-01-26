@@ -11,9 +11,12 @@ and open the template in the editor.
 div.login {
   margin-left:auto;
   margin-right:auto;
-  width:8cm;
+  width:6cm;
 }
 div.login h1 {
   font-size:x-large;
   text-align:center;
+}
+div.login table, div.login table input {
+  width:100%;
 }
