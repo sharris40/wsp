@@ -15,14 +15,23 @@ and open the template in the editor.
       <div class="vc">
         <div class="login">
           <h1>Please Log In</h1>
+          <hr/>
           <form action="login" method="POST">
             <table>
               <tbody>
                 <tr>
-                  <td><input type="text" name="user"/></td>
+                  <td><label for="user">User Name:</label></td>
+                  <td><input type="text" id="user" name="user"/></td>
                 </tr>
                 <tr>
-                  <td><input type="password" name="pass"/></td>
+                  <td><label for="pass">Password:</label></td>
+                  <td><input type="password" id="pass" name="pass"/></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><hr/></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><input type="submit" value="Log In"/></td>
                 </tr>
               </tbody>
             </table>
