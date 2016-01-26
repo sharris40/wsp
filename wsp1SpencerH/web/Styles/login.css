@@ -8,3 +8,8 @@ and open the template in the editor.
     Author     : dpbjinc
 */
 
+div.login {
+    margin-left:auto;
+    margin-right:auto;
+    width:8cm;
+}
