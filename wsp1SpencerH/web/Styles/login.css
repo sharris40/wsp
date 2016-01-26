@@ -21,11 +21,12 @@ div.vc {
 div.login {
   width:8cm;
   margin:auto;
+  border: 2px solid black;
 }
 div.login h1 {
   font-size:x-large;
   text-align:center;
 }
-div.login table, div.login table input {
+div.login table, div.login table input.stretch {
   width:100%;
 }
