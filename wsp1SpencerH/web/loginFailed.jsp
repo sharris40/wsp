@@ -18,6 +18,7 @@
 
 <% String user = request.getParameter("username"); %>
 <% if (user != null && !user.isEmpty()) { %>
+<%   user = user.replace("&", "&amp;").replace("<", "&lt;"); %>
           <p class="message">Either user <b><%= user %></b> does not exist,
             or you have entered an incorrect password for <b><%= user %></b>.</p>
 <% } %>
