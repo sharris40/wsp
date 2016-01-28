@@ -1,6 +1,5 @@
 <%-- 
     Document   : loginFailed
-    Created on : Jan 27, 2016, 10:08:47 PM
     Author     : Spencer Harris
 --%>
 
