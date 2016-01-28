@@ -27,7 +27,8 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    //response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    doPost(request, response);
   }
 
   /**
@@ -41,8 +42,8 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    String user = request.getParameter("username");
-    String pass = request.getParameter("password");
+    //String user = request.getParameter("username");
+    //String pass = request.getParameter("password");
     String location = "http://example.com/";
     /*if (user == null || pass == null) {
       response.sendError(HttpServletResponse.SC_FORBIDDEN);
