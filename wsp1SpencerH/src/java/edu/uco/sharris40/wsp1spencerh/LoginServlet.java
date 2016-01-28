@@ -46,7 +46,6 @@ public class LoginServlet extends HttpServlet {
     }
   }
 
-  // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
   /**
    * Handles the HTTP <code>GET</code> method.
    *
@@ -58,7 +57,21 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    processRequest(request, response);
+    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+    response.setContentType("text/html;charset=UTF-8");
+    try (PrintWriter out = response.getWriter()) {
+      /* TODO output your page here. You may use following sample code. */
+      out.println("<!DOCTYPE html>");
+      out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
+      out.println("  <head><meta charset=\"UTF-8\"/>");
+      out.println("    <title>Forbidden</title>");      
+      out.println("  </head>");
+      out.println("  <body>");
+      out.println("    <h1>Forbidden</h1>");
+      out.println("    <p>You do not have permission to access this page.</p>");
+      out.println("  </body>");
+      out.println("</html>");
+    }
   }
 
   /**
@@ -82,7 +95,7 @@ public class LoginServlet extends HttpServlet {
    */
   @Override
   public String getServletInfo() {
-    return "Short description";
-  }// </editor-fold>
+    return "Processes login information and redirects user to an appropriate location.";
+  }
 
 }
