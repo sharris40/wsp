@@ -57,21 +57,7 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-    response.setContentType("text/html;charset=UTF-8");
-    try (PrintWriter out = response.getWriter()) {
-      /* TODO output your page here. You may use following sample code. */
-      out.println("<!DOCTYPE html>");
-      out.println("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
-      out.println("  <head><meta charset=\"UTF-8\"/>");
-      out.println("    <title>Forbidden</title>");      
-      out.println("  </head>");
-      out.println("  <body>");
-      out.println("    <h1>Forbidden</h1>");
-      out.println("    <p>You do not have permission to access this page.</p>");
-      out.println("  </body>");
-      out.println("</html>");
-    }
+    response.sendError(HttpServletResponse.SC_FORBIDDEN);
   }
 
   /**
