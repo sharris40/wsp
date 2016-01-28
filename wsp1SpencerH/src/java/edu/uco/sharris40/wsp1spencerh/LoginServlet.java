@@ -54,19 +54,22 @@ public class LoginServlet extends HttpServlet {
     } else if (pass.equals("secret")) {
       switch (user.toLowerCase(Locale.US)) {
         case "sung":
+          response.setStatus(HttpServletResponse.SC_SEE_OTHER);
           location = "http://cs3.uco.edu/";
           break;
         case "cs":
+          response.setStatus(HttpServletResponse.SC_SEE_OTHER);
           location = "http://cs.uco.edu/";
           break;
         default:
-          response.sendRedirect(response.encodeRedirectURL("index.html"));
+          response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+          location = response.encodeRedirectURL("loginFailed.jsp");
       }
     } else {
-      response.sendRedirect(response.encodeRedirectURL("index.html"));
+      response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+      location = response.encodeRedirectURL("loginFailed.jsp");
     }
     if (location != null) {
-      response.setStatus(HttpServletResponse.SC_SEE_OTHER);
       response.setHeader("Location", location);
       response.setContentType("text/html;charset=UTF-8");
       try (PrintWriter out = response.getWriter()) {
@@ -78,8 +81,8 @@ public class LoginServlet extends HttpServlet {
         out.println("  </head>");
         out.println("  <body>");
         out.println("    <h1>Redirecting&#x2026;</h1>");
-        out.println("    <p>You are now being redirected to your home page.</p>");
-        out.println("    <p>If you are not automatically redirected, <a href=\"" + location + "\">click here</a> to visit your home page.</p>");
+        out.println("    <p>You are now being redirected.</p>");
+        out.println("    <p>If you are not automatically redirected in five seconds, <a href=\"" + location + "\">click here</a> to continue.</p>");
         out.println("  </body>");
         out.println("</html>");
       }
