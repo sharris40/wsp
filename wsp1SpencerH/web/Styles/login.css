@@ -30,3 +30,7 @@ div.login h1 {
 div.login table, div.login table input.stretch {
   width:100%;
 }
+
+div.login p.message {
+  margin: 0.25cm;
+}
