@@ -43,8 +43,8 @@ public class LoginServlet extends HttpServlet {
           throws ServletException, IOException {
     String user = request.getParameter("username");
     String pass = request.getParameter("password");
-    String location = null;
-    if (user == null || pass == null) {
+    String location = "http://example.com/";
+    /*if (user == null || pass == null) {
       response.sendError(HttpServletResponse.SC_FORBIDDEN);
     } else if (pass.equals("secret")) {
       switch (user.toLowerCase(Locale.US)) {
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
     } else {
       response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
       location = response.encodeRedirectURL("loginFailed.jsp");
-    }
+    }*/
     if (location != null) {
       response.setHeader("Location", location);
       response.setContentType("text/html;charset=UTF-8");
