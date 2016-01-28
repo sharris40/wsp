@@ -18,8 +18,8 @@
 
 <% String user = request.getParameter("username"); %>
 <% if (user != null && !user.isEmpty()) { %>
-          <p class="message">Either user <b><%= request.getParameter("username") %></b> does not exist,
-            or you have entered an incorrect password for <b><%= request.getParameter("username") %></b>.</p>
+          <p class="message">Either user <b><%= user %></b> does not exist,
+            or you have entered an incorrect password for <b><%= user %></b>.</p>
 <% } %>
 
           <p class="message"><a href="index.html">Click here</a> to enter your credentials again.</p>
