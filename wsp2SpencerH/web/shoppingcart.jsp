@@ -9,6 +9,7 @@
 <%@page import="java.util.ArrayList" %>
 
     <title>Shopping Cart</title>
+    <link rel="stylesheet" href="Styles/cart.css"/>
   </head>
 <%
 List<Item> cart = (List<Item>)session.getAttribute("cart");
@@ -52,32 +53,34 @@ if (request.getParameter("buy_eraser") != null) {
 }
 %>
   <body>
-    <h3>The list of items in the shopping cart</h3>
+    <div class="contents">
+      <h3>The list of items in the shopping cart</h3>
 <% if (pencils == null && usbDrives == null && erasers == null) { %>
-    <p>Shopping cart is empty! Buy more!</p>
+      <p>Shopping cart is empty! Buy more!</p>
 <% } else { %>
-    <table>
-      <thead>
-        <tr>
-          <td>Item</td>
-          <td>Count</td>
-          <td>Unit Price</td>
-          <td>SubTotal</td>
-        </tr>
-      </thead>
-      <tbody>
+      <table class="listings">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Count</th>
+            <th>Unit Price</th>
+            <th>SubTotal</th>
+          </tr>
+        </thead>
+        <tbody>
 <%   for (Item item : cart) { %>
 <%     total += item.getTotal(); %>
-      <tr>
-        <td><%= item.getName() %></td>
-        <td><%= item.getCount() %></td>
-        <td><%= item.formatCost() %></td>
-        <td><%= item.formatTotal() %></td>
-      </tr>
+        <tr>
+          <td><%= item.getName() %></td>
+          <td><%= item.getCount() %></td>
+          <td><%= item.formatCost() %></td>
+          <td><%= item.formatTotal() %></td>
+        </tr>
 <%   } %>
-    </table>
-    <p><%= String.format("Total = $%d.%02d", total / 100, total % 100) %></p>
+      </table>
+      <p><%= String.format("Total = $%d.%02d", total / 100, total % 100) %></p>
 <% } %>
-    <a href="index.html">Go Home</a>
+      <a href="index.html">Go Home</a>
+    </div>
   </body>
 </html>

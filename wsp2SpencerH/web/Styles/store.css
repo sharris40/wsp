@@ -1,0 +1,56 @@
+.contents {
+  background-color: beige;
+  color: black;
+  width: 12cm;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: .5cm;
+  padding-bottom: 1cm;
+  text-align: center;
+}
+
+.contents table {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.contents a:link {
+  color: #00B;
+  background-color: inherit;
+}
+
+.contents a:visited {
+  color: #551A8B;
+  background-color: inherit;
+}
+
+.contents a:hover {
+  color: #05B;
+  background-color: inherit;
+}
+
+.contents a:active {
+  color: #A00;
+  background-color: inherit;
+}
+
+table.listings {
+  border-spacing: 0 .25cm;
+}
+
+.contents table.listings tr {
+  background-color: white;
+  color: inherit;
+}
+
+table.listings td {
+  padding: 0 .5cm;
+}
+
+.listings img {
+  height: 2cm;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
