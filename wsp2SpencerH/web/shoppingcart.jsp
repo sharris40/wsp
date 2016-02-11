@@ -30,7 +30,7 @@ for (Item item : cart) {
     erasers = (Eraser) item;
   }
 }
-if (request.getParameter("buy_pencil") != null) {
+/*if (request.getParameter("buy_pencil") != null) {
   if (pencils == null) {
     pencils = new Pencil();
     cart.add(pencils);
@@ -50,7 +50,16 @@ if (request.getParameter("buy_eraser") != null) {
     cart.add(erasers);
   }
   erasers.addToCount(1);
-}
+}*/
+pencils = new Pencil();
+cart.add(pencils);
+pencils.addToCount(1);
+usbDrives = new USBDrive();
+cart.add(usbDrives);
+usbDrives.addToCount(1);
+erasers = new Eraser();
+cart.add(erasers);
+erasers.addToCount(1);
 %>
   <body>
     <div class="contents">
