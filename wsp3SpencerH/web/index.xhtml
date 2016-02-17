@@ -1,12 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-  <h:head>
-    <title>Facelet Title</title>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head><meta charset="utf-8"/>
+    <title>WSP 3 Spencer Harris</title>
   </h:head>
   <h:body>
-    Hello from Facelets
+    <h1>Registration</h1>
+    <p class="instructions">Please enter your information below. All fields are required.</p>
+    <h:form>
+      <h:panelGrid columns="2">
+        <h:outputLabel value="Last Name:" for="lastName" />
+        <h:inputText id="lastName" />
+        <h:outputLabel value="First Name:" for="firstName" />
+        <h:inputText id="firstName" />
+        <h:outputLabel value="Password:" for="password" />
+        <h:inputSecret id="password" />
+        <h:outputLabel value="Email" for="email" />
+        <h:inputText id="email" />
+        <h:outputLabel value="Phone #:" for="phone" />
+        <h:inputText id="phone" />
+        <h:outputLabel value="Gender:" for="gender" />
+        <h:selectOneRadio id="gender">
+          <f:selectItem itemValue="F" itemLabel="Female" />
+          <f:selectItem itemValue="M" itemLabel="Male" />
+        </h:selectOneRadio>
+        <h:outputLabel value="Languages:" for="languages" />
+      </h:panelGrid>
+      <h:commandButton value="Sign Up" />
+    </h:form>
   </h:body>
 </html>
 
