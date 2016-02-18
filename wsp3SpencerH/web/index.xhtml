@@ -32,14 +32,14 @@
           <h:inputText id="phone" value="#{registrationData.phoneNumber}" />
           <h:message for="phone" class="error" />
 
-          <h:outputLabel value="Gender:" for="gender" />
+          <h:outputLabel value="Gender:" />
           <h:selectOneRadio id="gender" value="#{registrationData.gender}" >
             <f:selectItem itemValue="female" itemLabel="Female" />
             <f:selectItem itemValue="male" itemLabel="Male" />
           </h:selectOneRadio>
           <h:message for="gender" class="error" />
 
-          <h:outputLabel value="Languages:" for="languages" />
+          <h:outputLabel value="Languages:" />
           <h:selectManyCheckbox id="languages" value="#{registrationData.languages}" layout="pageDirection" >
             <f:selectItems value="#{registrationData.languageList}" />
           </h:selectManyCheckbox>
