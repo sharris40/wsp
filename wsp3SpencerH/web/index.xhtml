@@ -9,26 +9,48 @@
   <h:body>
     <h1>Registration</h1>
     <p class="instructions">Please enter your information below. All fields are required.</p>
-    <h:form>
-      <h:panelGrid columns="2">
+    <h:form id="registration">
+      <h:panelGrid columns="3">
         <h:outputLabel value="Last Name:" for="lastName" />
-        <h:inputText id="lastName" />
+        <h:inputText id="lastName" value="#{registrationData.lastName}" />
+        <h:message for="lastName" class="error" />
+
         <h:outputLabel value="First Name:" for="firstName" />
-        <h:inputText id="firstName" />
+        <h:inputText id="firstName" value="#{registrationData.firstName}" />
+        <h:message for="firstName" class="error" />
+
         <h:outputLabel value="Password:" for="password" />
-        <h:inputSecret id="password" />
-        <h:outputLabel value="Email" for="email" />
-        <h:inputText id="email" />
+        <h:inputSecret id="password" value="#{registrationData.password}" redisplay="true" />
+        <h:message for="password" class="error" />
+
+        <h:outputLabel value="Email:" for="email" />
+        <h:inputText id="email" value="#{registrationData.email}" />
+        <h:message for="email" class="error" />
+
         <h:outputLabel value="Phone #:" for="phone" />
-        <h:inputText id="phone" />
+        <h:inputText id="phone" value="#{registrationData.phoneNumber}" />
+        <h:message for="phone" class="error" />
+
         <h:outputLabel value="Gender:" for="gender" />
-        <h:selectOneRadio id="gender">
+        <h:selectOneRadio id="gender" value="#{registrationData.gender}" >
           <f:selectItem itemValue="F" itemLabel="Female" />
           <f:selectItem itemValue="M" itemLabel="Male" />
         </h:selectOneRadio>
+        <h:message for="gender" class="error" />
+
         <h:outputLabel value="Languages:" for="languages" />
+        <h:selectManyCheckbox id="languages" value="#{registrationData.languages}" >
+          <f:selectItems value="#{registrationData.languageList}" />
+        </h:selectManyCheckbox>
+        <h:message for="languages" class="error" />
+
+        <h:outputLabel value="Hometown:" for="town" />
+        <h:selectOneMenu id="town" value="#{registrationData.hometown}" >
+          <f:selectItems value="#{registrationData.hometownList}" />
+        </h:selectOneMenu>
+        <h:message for="town" class="error" />
       </h:panelGrid>
-      <h:commandButton value="Sign Up" />
+      <h:commandButton value="Sign Up" action="#{registrationData.submit()}" />
     </h:form>
   </h:body>
 </html>
