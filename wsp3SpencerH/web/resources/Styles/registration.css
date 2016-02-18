@@ -1,0 +1,66 @@
+.error {
+  font-weight: bold;
+  font-size: small;
+}
+
+.instructions {
+  font-size: small;
+}
+
+.contents {
+  background-color: beige;
+  color: black;
+  width: 20cm;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: .5cm;
+  padding-bottom: 1cm;
+  text-align: center;
+}
+
+.contents table.registration {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.contents a:link {
+  color: #00B;
+  background-color: inherit;
+}
+
+.contents a:visited {
+  color: #551A8B;
+  background-color: inherit;
+}
+
+.contents a:hover {
+  color: #05B;
+  background-color: inherit;
+}
+
+.contents a:active {
+  color: #A00;
+  background-color: inherit;
+}
+
+table.registration > tbody > tr > td {
+  padding: 0 .25cm;
+  height: 1cm;
+}
+
+table.registration td.col1 {
+  width: 2cm;
+}
+
+table.registration td.col2 {
+  width: 5cm;
+}
+
+table.registration td.col3 {
+  width: 11.5cm;
+}
+
+table.registration td.reg_info {
+  font-weight: bold;
+}

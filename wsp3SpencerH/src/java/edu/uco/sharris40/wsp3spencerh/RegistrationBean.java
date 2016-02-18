@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.uco.sharris40.wsp3spencerh;
 
 import javax.inject.Named;
@@ -17,20 +12,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-/**
- *
- * @author dpbjinc
- */
 @Named(value = "registrationData")
 @SessionScoped
 public class RegistrationBean implements Serializable {
+  private static final long serialVersionUID = 10L;
+
   private static final List<String> LANGUAGES, TOWNS;
   private static final String NEXT_SUCCESS = "register";
   public static final Pattern PHONE_PATTERN;
   public static final Pattern NAME_PATTERN;
   public static final int PASSWORD_MIN_LENGTH = 4;
-  public static final String FEMALE = "F";
-  public static final String MALE = "M";
+  public static final String FEMALE = "female";
+  public static final String MALE = "male";
 
   static {
     LANGUAGES = new ArrayList<>(5);
@@ -160,11 +153,11 @@ public class RegistrationBean implements Serializable {
   public void setGender(String gender) {
     if (gender != null) {
       switch (gender) {
-        case "F":
+        case FEMALE:
           this.female = true;
           this.male = false;
           break;
-        case "M":
+        case MALE:
           this.male = true;
           this.female = false;
           break;
@@ -174,6 +167,11 @@ public class RegistrationBean implements Serializable {
 
   public List<String> getLanguages() {
     return languages;
+  }
+
+  public String getLanguagesAsString() {
+    String list = languages.toString().substring(1);
+    return list.substring(0, list.length() - 1);
   }
 
   public void setLanguages(ArrayList<String> languages) {
