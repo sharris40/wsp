@@ -1,5 +1,7 @@
 package edu.uco.sharris40.wsp4spencerh.models;
 
+import java.util.Objects;
+
 public class Book {
   private String title, author;
   private int price = -1;
@@ -63,5 +65,26 @@ public class Book {
       throw new IllegalArgumentException("Price must not be negative.");
     this.price = price;
     checkWrite();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || !(o instanceof Book))
+      return false;
+    if (!initialized && !((Book)o).initialized)
+      return false;
+    return ((Book)o).getTitle().equals(getTitle())
+            && ((Book)o).getAuthor().equals(getAuthor())
+            && ((Book)o).getPrice() == getPrice();
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 5;
+    hash = 53 * hash + Objects.hashCode(this.title);
+    hash = 53 * hash + Objects.hashCode(this.author);
+    hash = 53 * hash + this.price;
+    hash = 53 * hash + (this.initialized ? 1 : 0);
+    return hash;
   }
 }
