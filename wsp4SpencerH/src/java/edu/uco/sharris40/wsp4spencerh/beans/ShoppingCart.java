@@ -7,7 +7,6 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedProperty;
 
 @Named(value = "shoppingCart")
 @SessionScoped
@@ -15,9 +14,6 @@ public class ShoppingCart implements Serializable {
   private static final long serialVersionUID = 1L;
 
   private ArrayList<BookItem> items;
-
-  @ManagedProperty(value="#{bookDatabase}")
-  private BookDatabase database;
 
   public ShoppingCart() {
   }
@@ -29,6 +25,22 @@ public class ShoppingCart implements Serializable {
 
   public ArrayList<BookItem> getItems() {
     return items;
+  }
+
+  public long getTotal() {
+    long sum = 0;
+    for (BookItem item : items) {
+      if (sum != Long.MAX_VALUE) {
+        sum += item.getTotal();
+        if (sum < 0)
+          sum = Long.MAX_VALUE;
+      }
+    }
+    return sum;
+  }
+
+  public String formatTotal() {
+    return String.format("$%d.%02d", getTotal() / 100, getTotal() % 100);
   }
 
   public void addBook(Book book) {
@@ -49,12 +61,6 @@ public class ShoppingCart implements Serializable {
     }
   }
 
-  public void addBook(int index) {
-    if (database == null)
-      throw new NullPointerException("Could not access book database.");
-    addBook(database.getBookList().get(index));
-  }
-
   public void removeBook(Book book) {
     if (book == null)
       throw new IllegalArgumentException("book", new NullPointerException());
@@ -68,12 +74,6 @@ public class ShoppingCart implements Serializable {
         break;
       }
     }
-  }
-
-  public void removeBook(int index) {
-    if (database == null)
-      throw new NullPointerException("Could not access book database.");
-    removeBook(database.getBookList().get(index));
   }
 
 }
