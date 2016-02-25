@@ -59,17 +59,14 @@ public class ShoppingCart implements Serializable {
     if (book == null)
       throw new IllegalArgumentException("book", new NullPointerException());
     boolean found = false;
-    for (BookItem item : items) {
+    for (int i = 0; i < items.size(); ++i) {
+      BookItem item = items.get(i);
       if (item.getBook().equals(book)) {
-        found = true;
         item.remove(1);
+        if (item.getQuantity() == 0)
+          items.remove(i);
         break;
       }
-    }
-    if (!found) {
-      BookItem newItem = new BookItem();
-      newItem.setBook(book);
-      items.add(newItem);
     }
   }
 
