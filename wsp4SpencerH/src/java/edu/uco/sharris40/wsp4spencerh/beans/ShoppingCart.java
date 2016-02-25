@@ -21,6 +21,22 @@ public class ShoppingCart implements Serializable {
   @PostConstruct
   public void init() {
     items = new ArrayList<>();
+    Book book = new Book();
+    BookItem item = new BookItem();
+    item.setBook(book.init("Intro to Java Servlets", "Mark", 1095));
+    items.add(item);
+    book = new Book();
+    item = new BookItem();
+    item.setBook(book.init("Intro to JSP", "John", 1195));
+    items.add(item);
+    book = new Book();
+    item = new BookItem();
+    item.setBook(book.init("Intro to JSF", "Luke", 1295));
+    items.add(item);
+    book = new Book();
+    item = new BookItem();
+    item.setBook(book.init("Intro to Java EE", "Matt", 1395));
+    items.add(item);
   }
 
   public ArrayList<BookItem> getItems() {
