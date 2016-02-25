@@ -2,6 +2,7 @@
 package edu.uco.sharris40.wsp4spencerh.beans;
 
 import edu.uco.sharris40.wsp4spencerh.models.Book;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -10,7 +11,9 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Named(value = "bookDatabase")
 @ApplicationScoped
-public class BookDatabase {
+public class BookDatabase implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private List<Book> books;
 
   /**

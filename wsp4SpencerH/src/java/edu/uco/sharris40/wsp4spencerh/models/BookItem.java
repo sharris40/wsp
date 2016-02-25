@@ -1,15 +1,12 @@
 package edu.uco.sharris40.wsp4spencerh.models;
 
-public class BookItem {
+import java.io.Serializable;
+
+public class BookItem implements Serializable {
+  private static final long serialVersionUID = 1L;
+
   private Book book = null;
   private int quantity = 0;
-
-  public BookItem init(Book book) {
-    if (book == null)
-      throw new IllegalArgumentException("book", new NullPointerException());
-    this.book = book;
-    return this;
-  }
 
   public Book getBook() {
     return book;
@@ -28,7 +25,45 @@ public class BookItem {
   }
 
   public void setQuantity(int quantity) {
+    if (quantity < 0)
+      throw new IllegalArgumentException("Quantity must be positive.");
     this.quantity = quantity;
+  }
+
+  public boolean remove(int quantity) {
+    if (quantity < 0) {
+      if (quantity == Integer.MIN_VALUE) {
+        this.quantity = Integer.MAX_VALUE;
+        return false;
+      } else {
+        return add(quantity * -1);
+      }
+    } else {
+      this.quantity -= quantity;
+      if (this.quantity < 0) {
+        this.quantity = 0;
+        return false;
+      }
+      return true;
+    }
+  }
+
+  public boolean add(int quantity) {
+    if (quantity < 0) {
+      if (quantity == Integer.MIN_VALUE) {
+        this.quantity = 0;
+        return true;
+      } else {
+        return remove(quantity * -1);
+      }
+    } else {
+      this.quantity += quantity;
+      if (this.quantity < 0) {
+        this.quantity = Integer.MAX_VALUE;
+        return false;
+      }
+      return true;
+    }
   }
 
 }
