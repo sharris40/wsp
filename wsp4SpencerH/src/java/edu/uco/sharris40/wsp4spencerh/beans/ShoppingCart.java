@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 @Named(value = "shoppingCart")
 @SessionScoped
 public class ShoppingCart implements Serializable {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   private ArrayList<BookItem> items;
 
@@ -57,6 +57,7 @@ public class ShoppingCart implements Serializable {
     if (!found) {
       BookItem newItem = new BookItem();
       newItem.setBook(book);
+      newItem.setQuantity(1);
       items.add(newItem);
     }
   }
