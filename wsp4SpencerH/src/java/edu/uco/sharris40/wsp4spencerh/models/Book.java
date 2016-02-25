@@ -5,7 +5,7 @@ public class Book {
   private int price = -1;
   private boolean initialized;
 
-  public void init(String title, String author, int price) {
+  public Book init(String title, String author, int price) {
     if (title == null)
       throw new IllegalArgumentException("title", new NullPointerException());
     if (author == null)
@@ -16,6 +16,7 @@ public class Book {
     this.author = author;
     this.price = price;
     initialized = true;
+    return this;
   }
 
   private void checkRead() {
