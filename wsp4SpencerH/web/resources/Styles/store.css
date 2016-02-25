@@ -1,0 +1,64 @@
+.contents {
+  background-color: beige;
+  color: black;
+  width: 16cm;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: .5cm;
+  padding-bottom: 1cm;
+  text-align: center;
+}
+
+.contents table {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.contents a:link {
+  color: #00B;
+  background-color: inherit;
+}
+
+.contents a:visited {
+  color: #551A8B;
+  background-color: inherit;
+}
+
+.contents a:hover {
+  color: #05B;
+  background-color: inherit;
+}
+
+.contents a:active {
+  color: #A00;
+  background-color: inherit;
+}
+
+table tr.odd {
+  background-color: antiquewhite;
+  color: black;
+}
+
+table tr.even, table thead tr {
+  background-color: ivory;
+  color: black;
+}
+
+table.listings th {
+  text-align: center;
+  padding: .125cm .5cm;
+}
+
+table.listings td {
+  padding: 0 .5cm;
+}
+
+table.cart th {
+  text-align: center;
+  padding: .125cm .125cm;
+}
+
+table.cart td {
+  padding: 0 .1cm;
+}

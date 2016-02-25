@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head><meta charset="utf-8"/>
+    <title>WSP 3 Spencer Harris</title>
+    <h:outputStylesheet library="Styles" name="registration.css" />
+  </h:head>
+  <h:body>
+    <div class="contents">
+      <h1>Registration</h1>
+      <p class="instructions">Please enter your information below. All fields are required.</p>
+      <h:form id="registration">
+        <h:panelGrid columns="3" class="registration" columnClasses="col1,col2,col3" >
+          <h:outputLabel value="Last Name:" for="lastName" />
+          <h:inputText id="lastName" value="#{registrationData.lastName}" />
+          <h:message for="lastName" class="error" />
+
+          <h:outputLabel value="First Name:" for="firstName" />
+          <h:inputText id="firstName" value="#{registrationData.firstName}" />
+          <h:message for="firstName" class="error" />
+
+          <h:outputLabel value="Password:" for="password" />
+          <h:inputSecret id="password" value="#{registrationData.password}" redisplay="true" />
+          <h:message for="password" class="error" />
+
+          <h:outputLabel value="Email:" for="email" />
+          <h:inputText id="email" value="#{registrationData.email}" />
+          <h:message for="email" class="error" />
+
+          <h:outputLabel value="Phone #:" for="phone" />
+          <h:inputText id="phone" value="#{registrationData.phoneNumber}" />
+          <h:message for="phone" class="error" />
+
+          <h:outputLabel value="Gender:" />
+          <h:selectOneRadio id="gender" value="#{registrationData.gender}" >
+            <f:selectItem itemValue="female" itemLabel="Female" />
+            <f:selectItem itemValue="male" itemLabel="Male" />
+          </h:selectOneRadio>
+          <h:message for="gender" class="error" />
+
+          <h:outputLabel value="Languages:" />
+          <h:selectManyCheckbox id="languages" value="#{registrationData.languages}" layout="pageDirection" >
+            <f:selectItems value="#{registrationData.languageList}" />
+          </h:selectManyCheckbox>
+          <h:message for="languages" class="error" />
+
+          <h:outputLabel value="Hometown:" for="town" />
+          <h:selectOneMenu id="town" value="#{registrationData.hometown}" >
+            <f:selectItems value="#{registrationData.hometownList}" />
+          </h:selectOneMenu>
+          <h:message for="town" class="error" />
+        </h:panelGrid>
+        <h:commandButton value="Sign Up" action="#{registrationData.submit()}" />
+      </h:form>
+    </div>
+  </h:body>
+</html>
