@@ -30,6 +30,14 @@ public class BookItem implements Serializable {
     this.quantity = quantity;
   }
 
+  public long getTotal() {
+    return (long)book.getPrice() * getQuantity();
+  }
+
+  public String formatTotal() {
+    return String.format("$%d.%02d", getTotal() / 100, getTotal() % 100);
+  }
+
   public boolean remove(int quantity) {
     if (quantity < 0) {
       if (quantity == Integer.MIN_VALUE) {

@@ -63,6 +63,10 @@ public class Book implements Serializable {
     return price;
   }
 
+  public String formatPrice() {
+    return String.format("$%d.%02d", getPrice() / 100, getPrice() % 100);
+  }
+
   public void setPrice(int price) {
     if (price < 0)
       throw new IllegalArgumentException("Price must not be negative.");
