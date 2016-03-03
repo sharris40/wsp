@@ -280,9 +280,7 @@ public class RegistrationBean implements Serializable {
                 = connection.prepareCall("{call registrationPassword (?, ?)}");
         passwordStatement.setLong(1, keys.getLong(1));
         passwordStatement.setNString(2, getPassword());
-        System.out.println("here");
         passwordStatement.execute();
-        System.out.println("there");
         success = true;
       }
       
