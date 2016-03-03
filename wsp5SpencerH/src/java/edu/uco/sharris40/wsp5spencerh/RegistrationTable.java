@@ -54,7 +54,7 @@ public class RegistrationTable implements Serializable {
       ResultSet results = statement.executeQuery(
               "SELECT lastName, firstName, email, "
                       + "phone, male, langCPlusPlus, langJava, langCSharp, "
-                      + "langSwift, langPython, hometown) "
+                      + "langSwift, langPython, hometown "
                   + "FROM registration");
       while (results.next()) {
         RegistrationBean bean = new RegistrationBean();
@@ -66,7 +66,8 @@ public class RegistrationTable implements Serializable {
         phoneBuilder.insert(3, '\u2012');
         phoneBuilder.insert(7, '\u2012');
         bean.setPhoneNumber(phoneBuilder.toString());
-        bean.setGender((results.getBoolean(5)) ? "M" : "F");
+        bean.setGender((results.getBoolean(5)) ? RegistrationBean.MALE
+                                               : RegistrationBean.FEMALE);
         ArrayList<String> languages = new ArrayList<>(5);
         if (results.getBoolean(6)) {
           languages.add("C++");
