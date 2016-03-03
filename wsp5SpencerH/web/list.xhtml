@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head><meta charset="utf-8"/>
+    <title>My Book Store</title>
+    <h:outputStylesheet library="Styles" name="registration.css" />
+  </h:head>
+  <h:body>
+    <div class='contents wide'>
+      <h1>Registration List</h1>
+        <h:dataTable class='listings' rowClasses="odd,even"
+                     value="#{registrationTable.entries}" var="entry">
+          <h:column>
+            <f:facet name="header">Last Name</f:facet>
+            #{entry.lastName}
+          </h:column>
+          <h:column>
+            <f:facet name="header">First Name</f:facet>
+            #{entry.firstName}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Email Address</f:facet>
+            #{entry.email}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Phone Number</f:facet>
+            #{entry.phoneNumber}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Gender</f:facet>
+            #{entry.gender}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Languages</f:facet>
+            #{entry.languagesAsString}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Hometown</f:facet>
+            #{entry.hometown}
+          </h:column>
+        </h:dataTable>
+    </div>
+  </h:body>
+</html>

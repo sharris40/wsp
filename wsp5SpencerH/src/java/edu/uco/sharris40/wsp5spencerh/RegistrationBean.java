@@ -266,6 +266,7 @@ public class RegistrationBean implements Serializable {
             statement.setBoolean(9, true);
             break;
           case "Python":
+            statement.setBoolean(10, true);
         }
       }
       statement.setNString(11, getHometown());
@@ -308,6 +309,10 @@ public class RegistrationBean implements Serializable {
       next = "";
       addError(context, form, "lastName", "Invalid name.",
               "Please use alphabetic characters (A through Z and a through z) only for your last name. You can use spaces to separate words.");
+    } else if (lastName.length() > 30) {
+      next = "";
+      addError(context, form, "lastName", "Invalid name.",
+              "Your last name must be no more than 30 characters.");
     }
 
     if (firstName.isEmpty()) {
@@ -318,12 +323,20 @@ public class RegistrationBean implements Serializable {
       next = "";
       addError(context, form, "firstName", "Invalid name.",
               "Please use alphabetic characters (A through Z and a through z) only for your first name. You can use spaces to separate words.");
+    } else if (firstName.length() > 30) {
+      next = "";
+      addError(context, form, "firstName", "Invalid name.",
+              "Your first name must be no more than 30 characters.");
     }
 
     if (password.length < PASSWORD_MIN_LENGTH) {
       next = "";
       addError(context, form, "password", "Invalid password.",
               "Your password must be at least four characters long.");
+    } else if (password.length > 250) {
+      next = "";
+      addError(context, form, "password", "Invalid password.",
+              "Your password must be no more than 250 characters long.");
     }
 
     if (email.isEmpty()) {
@@ -334,6 +347,10 @@ public class RegistrationBean implements Serializable {
       next = "";
       addError(context, form, "email", "Invalid email.",
               "Please enter a valid email address. Valid email addresses must contain an at sign (@).");
+    } else if (email.length() > 60) {
+      next = "";
+      addError(context, form, "email", "Invalid email.",
+              "Your email must be no more than 60 characters.");
     }
 
     if (phoneNumber.isEmpty()) {
