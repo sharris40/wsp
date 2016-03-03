@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+  <h:head><meta charset="utf-8"/>
+    <title>WSP 5: User Information</title>
+    <h:outputStylesheet library="Styles" name="registration.css" />
+  </h:head>
+  <h:body>
+    <div class="contents">
+      <h1>Registration Submitted</h1>
+      <p>You registration has been received. Here is the information we have
+      received from you.</p>
+      <h2>Registration Information</h2>
+      <h:panelGrid columns="2" class="registration" columnClasses="label,reg_info" >
+        <h:outputText value="Last Name:" />
+        <h:outputText value="#{registrationData.lastName}" />
+        <h:outputText value="First Name:" />
+        <h:outputText value="#{registrationData.firstName}" />
+        <h:outputText value="Email address:" />
+        <h:outputText value="#{registrationData.email}" />
+        <h:outputText value="Phone number:" />
+        <h:outputText value="#{registrationData.phoneNumber}" />
+        <h:outputText value="Gender:" />
+        <h:outputText value="#{registrationData.gender}" />
+        <h:outputText value="Languages" />
+        <h:outputText value="#{registrationData.languagesAsString}" />
+        <h:outputText value="Hometown:" />
+        <h:outputText value="#{registrationData.hometown}" />
+      </h:panelGrid>
+    </div>
+  </h:body>
+</html>
