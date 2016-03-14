@@ -10,22 +10,20 @@
 .contents {
   background-color: beige;
   color: black;
-  width: 20cm;
+  width: 15cm;
   margin-left: auto;
   margin-right: auto;
   padding-top: .5cm;
   padding-bottom: 1cm;
+  padding-left: .5cm;
+  padding-right: .5cm;
   text-align: center;
-}
-
-.contents.wide {
-  width: 30cm;
 }
 
 .contents table {
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
+  text-align: center;
 }
 
 .contents a:link {
@@ -48,21 +46,23 @@
   background-color: inherit;
 }
 
-table tr.odd {
-  background-color: antiquewhite;
-  color: black;
-}
-
-table tr.even, table thead tr {
+table thead tr {
   background-color: ivory;
   color: black;
 }
 
 table.listings th {
-  text-align: center;
-  padding: .125cm .25cm;
+  padding: .125cm;
+}
+
+table.listings input {
+  width: 100%;
 }
 
 table.listings td {
-  padding: .25cm .25cm;
+  vertical-align: top;
+}
+
+.commands input {
+  margin: .125cm;
 }
