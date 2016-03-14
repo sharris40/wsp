@@ -2,27 +2,43 @@
 package edu.uco.sharris40.wsp6spencerh;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 @Named(value = "bookBean")
-@RequestScoped
+@SessionScoped
 public class BookBean implements Serializable {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   @Inject
   private BookTable table;
 
+  private List<Book> books;
+  private LinkedList<Book> remove;
+
   public BookBean() {
   }
 
-  public List<Book> getBooks() {
-    return table.readBooks();
+  @PostConstruct
+  private void init() {
+    books = table.readBooks();
+    remove = new LinkedList<>();
   }
 
-  public String updateBooks(List<Book> books) {
+  public List<Book> getBooks() {
+    return books;
+  }
+
+  public String resetBooks() {
+    init();
+    return null;
+  }
+
+  public String updateBooks() {
     boolean result = true;
     for(Book book : books) {
       if (book.getId() < 0) {
@@ -30,19 +46,37 @@ public class BookBean implements Serializable {
       } else if (book.isChanged()) {
         result = table.updateBook(book);
       }
-      if (!result)
+      if (result)
+        book.setChanged(false);
+      else
         break;
     }
-    if (result)
+    if (result) {
+      while (!remove.isEmpty()) {
+        result = table.deleteBook(remove.getFirst());
+        if (result)
+          remove.removeFirst();
+        else
+          break;
+      }
+    }
+    books = table.readBooks();
+    if (result && books != null) {
       return null;
-    else
+    } else {
       return "error";
+    }
+  }
+
+  public String addBook() {
+    books.add(new Book());
+    return null;
   }
 
   public String removeBook(Book book) {
-    if (table.deleteBook(book))
-      return null;
-    else
-      return "error";
+    books.remove(book);
+    if (book.getId() > -1)
+      remove.add(book);
+    return null;
   }
 }
