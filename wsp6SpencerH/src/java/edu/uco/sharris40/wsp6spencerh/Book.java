@@ -27,6 +27,8 @@ public class Book implements Serializable {
   @Max(2016)
   private int publicationYear;
 
+  private boolean changed = false;
+
   public Book() {}
 
   public int getId() {
@@ -35,6 +37,7 @@ public class Book implements Serializable {
 
   public void setId(int id) {
     this.id = id;
+    this.setChanged(true);
   }
 
   public String getTitle() {
@@ -43,6 +46,7 @@ public class Book implements Serializable {
 
   public void setTitle(String title) {
     this.title = title;
+    this.setChanged(true);
   }
 
   public String getAuthor() {
@@ -51,6 +55,7 @@ public class Book implements Serializable {
 
   public void setAuthor(String author) {
     this.author = author;
+    this.setChanged(true);
   }
 
   public int getPrice() {
@@ -59,6 +64,7 @@ public class Book implements Serializable {
 
   public void setPrice(int price) {
     this.price = price;
+    this.setChanged(true);
   }
 
   public int getPublicationYear() {
@@ -67,6 +73,15 @@ public class Book implements Serializable {
 
   public void setPublicationYear(int publicationYear) {
     this.publicationYear = publicationYear;
+    this.setChanged(true);
+  }
+
+  public boolean isChanged() {
+    return changed;
+  }
+
+  public void setChanged(boolean changed) {
+    this.changed = changed;
   }
 
 }
