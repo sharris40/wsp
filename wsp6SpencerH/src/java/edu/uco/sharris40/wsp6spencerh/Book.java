@@ -1,6 +1,8 @@
 package edu.uco.sharris40.wsp6spencerh;
 
 import java.io.Serializable;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,10 @@ public class Book implements Serializable {
   @Min(1)
   @Max(50000)
   private int price;
+
+  @DecimalMin("0.01")
+  @DecimalMax("500.00")
+  private String dollarPrice;
 
   @Min(2000)
   @Max(2016)
@@ -62,13 +68,19 @@ public class Book implements Serializable {
     return price;
   }
 
-  public String formatPrice() {
-    return String.format("$%d.%02d", getPrice() / 100, getPrice() % 100);
-  }
-
   public void setPrice(int price) {
     this.price = price;
     this.setChanged(true);
+  }
+
+  public String getDollarPrice() {
+    return dollarPrice;
+  }
+
+  public void setDollarPrice(String dollarPrice) {
+    double dollarPriceAsDouble = Double.parseDouble(dollarPrice);
+    this.price = (int)(dollarPriceAsDouble * 100.);
+    this.dollarPrice = Double.toString((double)this.price / 100.);
   }
 
   public int getPublicationYear() {
