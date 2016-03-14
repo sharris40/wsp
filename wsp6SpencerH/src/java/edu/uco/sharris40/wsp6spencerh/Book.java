@@ -1,7 +1,6 @@
 package edu.uco.sharris40.wsp6spencerh;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
@@ -19,7 +18,7 @@ public class Book implements Serializable, Cloneable {
   private String title;
 
   @NotNull
-  @Size(min=3, max=20)
+  @Size(min=2, max=20)
   private String author;
 
   @Min(1)
