@@ -62,6 +62,10 @@ public class Book implements Serializable {
     return price;
   }
 
+  public String formatPrice() {
+    return String.format("$%d.%02d", getPrice() / 100, getPrice() % 100);
+  }
+
   public void setPrice(int price) {
     this.price = price;
     this.setChanged(true);
