@@ -111,9 +111,12 @@ public class BookTable implements Serializable {
           cachedList.add(nextBook);
         }
       }
-      books = cachedList;
-    } catch (SQLException se) {
-      se.printStackTrace(System.err);
+      books = new LinkedList<>();
+      for (Book book : cachedList) {
+        books.add(book.clone());
+      }
+    } catch (SQLException | CloneNotSupportedException e) {
+      e.printStackTrace(System.err);
     } finally {
       lock.readLock().unlock();
     }
