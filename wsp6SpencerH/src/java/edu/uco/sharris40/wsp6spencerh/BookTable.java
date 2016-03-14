@@ -107,6 +107,7 @@ public class BookTable implements Serializable {
           nextBook.setAuthor(results.getNString("author"));
           nextBook.setPrice(results.getInt("price"));
           nextBook.setPublicationYear(results.getInt("publicationYear"));
+          nextBook.setChanged(false);
           cachedList.add(nextBook);
         }
       }
