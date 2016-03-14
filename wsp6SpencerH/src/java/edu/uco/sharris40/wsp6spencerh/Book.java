@@ -33,7 +33,7 @@ public class Book implements Serializable {
   @Max(2016)
   private int publicationYear;
 
-  private boolean changed = false;
+  private boolean changed = true;
 
   public Book() {}
 
@@ -70,6 +70,7 @@ public class Book implements Serializable {
 
   public void setPrice(int price) {
     this.price = price;
+    this.dollarPrice = Double.toString((double)this.price / 100.);
     this.setChanged(true);
   }
 
@@ -79,8 +80,7 @@ public class Book implements Serializable {
 
   public void setDollarPrice(String dollarPrice) {
     double dollarPriceAsDouble = Double.parseDouble(dollarPrice);
-    this.price = (int)(dollarPriceAsDouble * 100.);
-    this.dollarPrice = Double.toString((double)this.price / 100.);
+    this.setPrice((int)(dollarPriceAsDouble * 100.));
   }
 
   public int getPublicationYear() {
