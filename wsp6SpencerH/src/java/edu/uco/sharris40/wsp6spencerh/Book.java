@@ -1,6 +1,7 @@
 package edu.uco.sharris40.wsp6spencerh;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
@@ -8,7 +9,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Book implements Serializable {
+public class Book implements Serializable, Cloneable {
   private static final long serialVersionUID = 2L;
 
   private int id = -1;
@@ -98,6 +99,36 @@ public class Book implements Serializable {
 
   public void setChanged(boolean changed) {
     this.changed = changed;
+  }
+
+  @Override
+  public Book clone() throws CloneNotSupportedException {
+    return (Book) super.clone();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof Book))
+      return false;
+    Book other = (Book)o;
+    return this.id == other.id
+        && this.title.equals(other.title)
+        && this.author.equals(other.author)
+        && this.price == other.price
+        && this.publicationYear == other.publicationYear
+        && this.changed == other.changed;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 5;
+    hash = 67 * hash + this.id;
+    hash = 67 * hash + Objects.hashCode(this.title);
+    hash = 67 * hash + Objects.hashCode(this.author);
+    hash = 67 * hash + this.price;
+    hash = 67 * hash + this.publicationYear;
+    hash = 67 * hash + (this.changed ? 1 : 0);
+    return hash;
   }
 
 }
