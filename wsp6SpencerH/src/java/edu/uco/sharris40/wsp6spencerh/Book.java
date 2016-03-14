@@ -43,8 +43,10 @@ public class Book implements Serializable, Cloneable {
   }
 
   public void setId(int id) {
-    this.id = id;
-    this.setChanged(true);
+    if (this.id != id) {
+      this.id = id;
+      this.setChanged(true);
+    }
   }
 
   public String getTitle() {
@@ -52,8 +54,10 @@ public class Book implements Serializable, Cloneable {
   }
 
   public void setTitle(String title) {
-    this.title = title;
-    this.setChanged(true);
+    if (!title.equals(this.title)) {
+      this.title = title;
+      this.setChanged(true);
+    }
   }
 
   public String getAuthor() {
@@ -61,8 +65,10 @@ public class Book implements Serializable, Cloneable {
   }
 
   public void setAuthor(String author) {
-    this.author = author;
-    this.setChanged(true);
+    if (!author.equals(this.author)) {
+      this.author = author;
+      this.setChanged(true);
+    }
   }
 
   public int getPrice() {
@@ -70,9 +76,11 @@ public class Book implements Serializable, Cloneable {
   }
 
   public void setPrice(int price) {
-    this.price = price;
-    this.dollarPrice = Double.toString((double)this.price / 100.);
-    this.setChanged(true);
+    if (this.price != price){
+      this.price = price;
+      this.dollarPrice = Double.toString((double)this.price / 100.);
+      this.setChanged(true);
+    }
   }
 
   public String getDollarPrice() {
@@ -89,8 +97,10 @@ public class Book implements Serializable, Cloneable {
   }
 
   public void setPublicationYear(int publicationYear) {
-    this.publicationYear = publicationYear;
-    this.setChanged(true);
+    if (this.publicationYear != publicationYear) {
+      this.publicationYear = publicationYear;
+      this.setChanged(true);
+    }
   }
 
   public boolean isChanged() {
