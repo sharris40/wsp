@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head><meta charset="utf-8"/>
+    <title>WSP 6: Spencer Harris</title>
+    <h:outputStylesheet library="Styles" name="books.css" />
+  </h:head>
+  <h:body>
+    <div class="contents">
+      <h1>Book Database Listing</h1>
+      <h:form>
+        <h:dataTable value="#{bookBean.books}"
+                     var="book" class="listings">
+          <!--<h:column>
+            <f:facet name="header">id</f:facet>
+            <h:outputText value="#{book.id}"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">changed</f:facet>
+            <h:outputText value="#{book.changed}"/>
+          </h:column>-->
+          <h:column>
+            <f:facet name="header">Title</f:facet>
+            <h:inputText id="title" value="#{book.title}" size="20"/><br/>
+            <h:messages for="title"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Author</f:facet>
+            <h:inputText id="author" value="#{book.author}" size="20"/><br/>
+            <h:messages for="author"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Price ($)</f:facet>
+            <h:inputText id="price" value="#{book.dollarPrice}" size="6"/><br/>
+            <h:messages for="price"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Publication Year</f:facet>
+            <h:inputText id="year" value="#{book.publicationYear}" size="4"/><br/>
+            <h:messages for="year"/>
+          </h:column>
+          <h:column>
+            <f:facet name="header">Delete</f:facet>
+            <h:commandLink value="Delete"
+                           action="#{bookBean.removeBook(book)}">
+              <f:ajax render="@form" />
+            </h:commandLink>
+          </h:column>
+        </h:dataTable>
+        <div class="commands">
+          <h:commandButton value="New"
+                           action="#{bookBean.addBook()}">
+            <f:ajax render="@form" />
+          </h:commandButton>
+          <h:commandButton value="Save"
+                           action="#{bookBean.updateBooks()}">
+            <f:ajax execute="@form" render="@form" />
+          </h:commandButton>
+          <h:commandButton value="Reload Books"
+                           action="#{bookBean.resetBooks()}">
+            <f:ajax render="@form" />
+          </h:commandButton>
+        </div>
+      </h:form>
+    </div>
+  </h:body>
+</html>
