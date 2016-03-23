@@ -20,7 +20,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class BookTable implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @Resource(name="jdbc/WSP6")
+  @Resource(name="jdbc/WSP7")
   private DataSource ds;
 
   private volatile LinkedList<Book> cachedList = null;
