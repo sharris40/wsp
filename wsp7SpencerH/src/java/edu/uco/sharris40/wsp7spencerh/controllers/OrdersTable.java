@@ -137,6 +137,7 @@ public class OrdersTable implements Serializable {
           if (id != lastid) {
             cachedList.add(order);
             order = OrderFactory.create(id);
+            order.setDate(results.getDate("date"));
             lastid = id;
           }
 

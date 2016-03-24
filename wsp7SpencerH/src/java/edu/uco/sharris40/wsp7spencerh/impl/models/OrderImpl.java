@@ -2,6 +2,7 @@ package edu.uco.sharris40.wsp7spencerh.impl.models;
 
 import edu.uco.sharris40.wsp7spencerh.models.Order;
 import edu.uco.sharris40.wsp7spencerh.models.Book;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ public class OrderImpl extends HashMap<Book, Integer> implements Order {
   private static final long serialVersionUID = 1L;
 
   private int id = -1;
+  private Date date;
 
   public OrderImpl() {}
 
@@ -57,6 +59,16 @@ public class OrderImpl extends HashMap<Book, Integer> implements Order {
     OrderImpl clone = (OrderImpl)super.clone();
     clone.id = this.id;
     return clone;
+  }
+
+  @Override
+  public Date getDate() {
+    return date;
+  }
+
+  @Override
+  public void setDate(Date date) {
+    this.date = date;
   }
 
 }
