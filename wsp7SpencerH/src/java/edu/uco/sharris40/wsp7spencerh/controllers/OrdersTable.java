@@ -98,11 +98,6 @@ public class OrdersTable implements Serializable {
     } catch (SQLException se) {
       se.printStackTrace(System.err);
     } finally {
-      try {
-        connection.close();
-      } catch (SQLException se) {
-        se.printStackTrace(System.err);
-      }
       lock.writeLock().unlock();
     }
 
@@ -116,7 +111,7 @@ public class OrdersTable implements Serializable {
       ResultSet dateResult = dateStatement.executeQuery();
       if (!dateResult.next())
           throw new SQLException("Could not retrieve order after submission.");
-      order.setDate(dateResult.getDate(1));
+      order.setDate(dateResult.getTimestamp(1));
     }catch (SQLException se) {
       se.printStackTrace(System.err);
     } finally {

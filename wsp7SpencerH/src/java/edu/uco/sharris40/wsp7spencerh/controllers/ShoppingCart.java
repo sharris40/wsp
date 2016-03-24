@@ -4,6 +4,8 @@ import edu.uco.sharris40.wsp7spencerh.models.Book;
 import edu.uco.sharris40.wsp7spencerh.models.Order;
 import edu.uco.sharris40.wsp7spencerh.models.OrderFactory;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -66,8 +68,17 @@ public class ShoppingCart implements Serializable {
   }
 
   public String checkout() {
-    if (order.isEmpty() || table.placeOrder(order))
+    if (order.isEmpty() || table.placeOrder(order)) {
+    System.out.println(order.getDate().toString());
       return "checkout";
+    }
     return "error";
+  }
+
+  public String getDate() {
+    Date date = order.getDate();
+    if (date == null)
+      date = new Date();
+    return new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").format(date);
   }
 }
