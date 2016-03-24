@@ -1,6 +1,7 @@
 package edu.uco.sharris40.wsp7spencerh.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
@@ -36,6 +37,12 @@ public class Book implements Serializable, Cloneable {
   private boolean changed = true;
 
   public Book() {}
+
+  public boolean isInitialized() {
+    return title != null && !title.isEmpty()
+        && author != null && !author.isEmpty()
+        && price > 0 && publicationYear > 0;
+  }
 
   public int getId() {
     return id;
@@ -113,6 +120,33 @@ public class Book implements Serializable, Cloneable {
   @Override
   public Book clone() throws CloneNotSupportedException {
     return (Book) super.clone();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!isInitialized())
+      return false;
+    if (o == null || !(o instanceof Book))
+      return false;
+    Book ob = (Book)o;
+    if (!ob.isInitialized())
+      return false;
+    return (this.id < 0 && ob.id < 0 || this.id == ob.id)
+        && this.title.equals(ob.title)
+        && this.author.equals(ob.author)
+        && this.price == ob.price
+        && this.publicationYear == ob.publicationYear;
+  }
+
+  @Override
+  public int hashCode() {
+    int hash = 5;
+    hash = 79 * hash + this.id;
+    hash = 79 * hash + Objects.hashCode(this.title);
+    hash = 79 * hash + Objects.hashCode(this.author);
+    hash = 79 * hash + this.price;
+    hash = 79 * hash + this.publicationYear;
+    return hash;
   }
 
 }
