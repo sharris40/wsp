@@ -64,12 +64,14 @@ public class OrdersTable implements Serializable {
       return false;
 
     int orderid = 1;
+    lock.writeLock().lock();
     try {
+      lock.readLock().lock();
       try {
         Statement orderStatement = connection.createStatement();
         ResultSet orderResult = orderStatement.executeQuery(
                 "SELECT orderid FROM orders "
-                  + "ORDER BY orderid DESC"
+                  + "ORDER BY orderid DESC "
                   + "LIMIT 1");
         if (orderResult.next()) {
           orderid = orderResult.getInt(1);
@@ -82,8 +84,6 @@ public class OrdersTable implements Serializable {
                   + "VALUES(?, ?, ?)");
       int rows;
       cachedList = null;
-      lock.readLock().lock();
-      lock.writeLock().lock();
       for (Map.Entry<Book, Integer> entry : order.entrySet()) {
         statement.setInt(1, orderid);
         statement.setInt(2, entry.getKey().getId());
