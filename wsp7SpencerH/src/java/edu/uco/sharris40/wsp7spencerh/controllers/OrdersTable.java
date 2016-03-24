@@ -74,7 +74,7 @@ public class OrdersTable implements Serializable {
                   + "ORDER BY orderid DESC "
                   + "LIMIT 1");
         if (orderResult.next()) {
-          orderid = orderResult.getInt(1);
+          orderid = orderResult.getInt(1) + 1;
         }
       } finally {
         lock.readLock().unlock();
