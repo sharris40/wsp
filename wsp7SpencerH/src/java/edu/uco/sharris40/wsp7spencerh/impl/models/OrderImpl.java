@@ -3,6 +3,7 @@ package edu.uco.sharris40.wsp7spencerh.impl.models;
 import edu.uco.sharris40.wsp7spencerh.models.Order;
 import edu.uco.sharris40.wsp7spencerh.models.Book;
 import java.util.HashMap;
+import java.util.Map;
 
 public class OrderImpl extends HashMap<Book, Integer> implements Order {
   private static final long serialVersionUID = 1L;
@@ -23,17 +24,17 @@ public class OrderImpl extends HashMap<Book, Integer> implements Order {
 
   @Override
   public int getSubtotal(Book book) {
-    Integer subtotal = this.get(book);
-    if (subtotal != null)
-      return subtotal;
+    Integer count = this.get(book);
+    if (count != null)
+      return count * book.getPrice();
     return 0;
   }
 
   @Override
   public int getTotal() {
     int total = 0;
-    for (Integer val : this.values()) {
-      total += val;
+    for (Map.Entry<Book, Integer> entry : this.entrySet()) {
+      total += entry.getKey().getPrice() * entry.getValue();
     }
     return total;
   }
