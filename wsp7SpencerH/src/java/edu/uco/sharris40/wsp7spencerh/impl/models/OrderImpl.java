@@ -50,4 +50,12 @@ public class OrderImpl extends HashMap<Book, Integer> implements Order {
     return String.format("$%d.%02d", total / 100, total % 100);
   }
 
+  @Override
+  @SuppressWarnings("CloneDeclaresCloneNotSupported")
+  public Object clone() {
+    OrderImpl clone = (OrderImpl)super.clone();
+    clone.id = this.id;
+    return clone;
+  }
+
 }
