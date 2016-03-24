@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -64,8 +65,8 @@ public class OrdersTable implements Serializable {
 
     try {
       PreparedStatement statement = connection.prepareStatement(
-              "INSERT INTO orders(bookid, quantity) "
-                  + "VALUES(?, ?)");
+              "INSERT INTO orders(orderid, bookid, quantity) "
+                  + "VALUES(?, ?, ?)");
       int rows;
       cachedList = null;
       for (Map.Entry<Book, Integer> entry : order.entrySet()) {
@@ -111,6 +112,9 @@ public class OrdersTable implements Serializable {
         int id;
         PreparedStatement bookStatement;
         ResultSet bookResult;
+        HashMap<Integer, Book> bookMap = new HashMap<>();
+        Book book;
+        int bookid;
         while (results.next()) {
           id = results.getInt("orderid");
           if (id != lastid) {
@@ -119,15 +123,20 @@ public class OrdersTable implements Serializable {
             lastid = id;
           }
 
-          bookStatement = connection.prepareStatement("SELECT * FROM books "
-                                                        + "WHERE bookid = ?");
-          bookStatement.setInt(1, id);
-          bookResult = bookStatement.executeQuery();
-          if (!bookResult.next())
-            throw new SQLException(String.format("Could not access book with "
-                    + "bookid %d.", id));
-          order.put(BookTable.createBookFromRow(bookResult),
-                    results.getInt("quantity"));
+          bookid = results.getInt("bookid");
+          book = bookMap.get(bookid);
+          if (book == null) {
+            bookStatement = connection.prepareStatement("SELECT * FROM books "
+                                                          + "WHERE bookid = ?");
+            bookStatement.setInt(1, id);
+            bookResult = bookStatement.executeQuery();
+            if (!bookResult.next())
+              throw new SQLException(String.format("Could not access book with "
+                      + "bookid %d.", id));
+            book = BookTable.createBookFromRow(bookResult);
+            bookMap.put(bookid, book);
+          }
+          order.put(book, results.getInt("quantity"));
         }
         if (order != null)
           cachedList.add(order);
