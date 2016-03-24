@@ -5,7 +5,6 @@ import edu.uco.sharris40.wsp7spencerh.models.Order;
 import edu.uco.sharris40.wsp7spencerh.models.OrderFactory;
 import java.io.Serializable;
 import java.util.Map;
-import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -29,8 +28,8 @@ public class ShoppingCart implements Serializable {
     order = OrderFactory.create();
   }
 
-  public Set<Book> getBooks() {
-    return order.keySet();
+  public Order getOrder() {
+    return order;
   }
 
   public String clearCart() {
@@ -42,6 +41,7 @@ public class ShoppingCart implements Serializable {
     if (book == null)
       throw new IllegalArgumentException("book", new NullPointerException());
     boolean found = false;
+    System.out.println("Here");
     for (Map.Entry<Book, Integer> item : order.entrySet()) {
       if (item.getKey().equals(book)) {
         found = true;
