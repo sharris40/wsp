@@ -64,4 +64,10 @@ public class ShoppingCart implements Serializable {
     }
     return null;
   }
+
+  public String checkout() {
+    if (order.isEmpty() || table.placeOrder(order))
+      return "checkout";
+    return "error";
+  }
 }

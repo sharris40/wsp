@@ -69,6 +69,8 @@
         </h:dataTable>
         <p>SHOPPING CART TOTAL:
           <h:outputText value="#{shoppingCart.order.getTotalAsString()}"/></p>
+          <h:commandButton value="checkout" action="#{shoppingCart.checkout()}"
+                           disabled="#{shoppingCart.order.isEmpty()}" />
       </h:form>
     </div>
   </h:body>
