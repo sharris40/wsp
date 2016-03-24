@@ -8,22 +8,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import javax.inject.Inject;
 
 @Named(value = "ordersTable")
 @ApplicationScoped
 public class OrdersTable implements Serializable {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   @Resource(name="jdbc/WSP7")
   private DataSource ds;
 
-  private volatile LinkedList<Book> cachedList = null;
+  @Inject
+  private BookTable table;
+
+  private volatile LinkedList<Order> cachedList = null;
   private ReentrantReadWriteLock lock;
 
   public OrdersTable() {}
@@ -45,130 +50,97 @@ public class OrdersTable implements Serializable {
     return connection;
   }
 
-  private void doUpdate(Connection conn, PreparedStatement stmt) throws SQLException {
-    lock.writeLock().lock();
-    cachedList = null;
+  public boolean placeOrder(Order order) {
+    if (order == null)
+      return false;
+
+    boolean success = false;
+    Connection connection = getConnection();
+    if (connection == null)
+      return false;
+
     try {
-      int rows = stmt.executeUpdate();
-      if (rows != 1)
-        throw new SQLException("Wrong number of rows generated; "
-                + "expected 1, got " + rows);
+      PreparedStatement statement = connection.prepareStatement(
+              "INSERT INTO orders(bookid, quantity) "
+                  + "VALUES(?, ?)");
+      int rows;
+      cachedList = null;
+      for (Map.Entry<Book, Integer> entry : order.entrySet()) {
+        statement.setInt(1, entry.getKey().getPrice());
+        statement.setInt(2, entry.getValue());
+        lock.writeLock().lock();
+        rows = statement.executeUpdate();
+        if (rows != 1)
+          throw new SQLException("Wrong number of rows generated; "
+                  + "expected 1, got " + rows);
+      }
+      success = true;
+
+    } catch (SQLException se) {
+      se.printStackTrace(System.err);
     } finally {
       try {
-        conn.close();
+        connection.close();
       } catch (SQLException se) {
         se.printStackTrace(System.err);
       }
       lock.writeLock().unlock();
     }
-  }
-
-  public boolean createBook(Book book) {
-    if (book == null)
-      return false;
-
-    boolean success = false;
-    Connection connection = getConnection();
-    if (connection == null)
-      return false;
-
-    try {
-      PreparedStatement statement = connection.prepareStatement(
-              "INSERT INTO books(title, author, price, publicationYear) "
-                  + "VALUES(?, ?, ?, ?)");
-      statement.setNString(1, book.getTitle());
-      statement.setNString(2, book.getAuthor());
-      statement.setInt(3, book.getPrice());
-      statement.setInt(4, book.getPublicationYear());
-      doUpdate(connection, statement);
-      success = true;
-
-    } catch (SQLException se) {
-      se.printStackTrace(System.err);
-    }
     return success;
   }
 
-  public List<Book> readBooks() {
-    LinkedList<Book> books = null;
+  public List<Order> readOrders() {
+    LinkedList<Order> orders = null;
     Connection connection = getConnection();
     if (connection == null)
       return null;
     lock.readLock().lock();
+    table.lock.readLock().lock();
     try {
       if (cachedList == null) {
         Statement statement = connection.createStatement();
-        ResultSet results = statement.executeQuery("SELECT * FROM books");
+        ResultSet results = statement.executeQuery("SELECT * FROM orders "
+                                                     + "ORDER BY orderid ASC");
+
         cachedList = new LinkedList<>();
+        int lastid = -1;
+        Order order = OrderFactory.create(-1); // for safety
+        int id;
+        PreparedStatement bookStatement;
+        ResultSet bookResult;
         while (results.next()) {
-          Book nextBook = new Book();
-          nextBook.setId(results.getInt("bookid"));
-          nextBook.setTitle(results.getNString("title"));
-          nextBook.setAuthor(results.getNString("author"));
-          nextBook.setPrice(results.getInt("price"));
-          nextBook.setPublicationYear(results.getInt("publicationYear"));
-          nextBook.setChanged(false);
-          cachedList.add(nextBook);
+          id = results.getInt("orderid");
+          if (id != lastid) {
+            cachedList.add(order);
+            order = OrderFactory.create(id);
+            lastid = id;
+          }
+
+          bookStatement = connection.prepareStatement("SELECT * FROM books "
+                                                        + "WHERE bookid = ?");
+          bookStatement.setInt(1, id);
+          bookResult = bookStatement.executeQuery();
+          if (!bookResult.next())
+            throw new SQLException(String.format("Could not access book with "
+                    + "bookid %d.", id));
+          order.put(BookTable.createBookFromRow(bookResult),
+                    results.getInt("quantity"));
         }
+        if (order != null)
+          cachedList.add(order);
       }
-      books = new LinkedList<>();
-      for (Book book : cachedList) {
-        books.add(book.clone());
-      }
-    } catch (SQLException | CloneNotSupportedException e) {
+      orders = (LinkedList<Order>) cachedList.clone();
+    } catch (SQLException e) {
       e.printStackTrace(System.err);
     } finally {
+      try {
+        connection.close();
+      } catch (SQLException se) {
+        se.printStackTrace(System.err);
+      }
+      table.lock.readLock().unlock();
       lock.readLock().unlock();
     }
-    return books;
-  }
-
-  public boolean updateBook(Book book) {
-    if (book == null || book.getId() < 0)
-      return false;
-
-    boolean success = false;
-    Connection connection = getConnection();
-    if (connection == null)
-      return false;
-
-    try {
-      PreparedStatement statement = connection.prepareStatement(
-              "UPDATE books SET title=?, author=?, price=?, publicationYear=? "
-                  + "WHERE bookid=?");
-      statement.setNString(1, book.getTitle());
-      statement.setNString(2, book.getAuthor());
-      statement.setInt(3, book.getPrice());
-      statement.setInt(4, book.getPublicationYear());
-      statement.setInt(5, book.getId());
-      doUpdate(connection, statement);
-      success = true;
-
-    } catch (SQLException se) {
-      se.printStackTrace(System.err);
-    }
-    return success;
-  }
-
-  public boolean deleteBook(Book book) {
-    if (book == null || book.getId() < 0)
-      return false;
-
-    boolean success = false;
-    Connection connection = getConnection();
-    if (connection == null)
-      return false;
-
-    try {
-      PreparedStatement statement = connection.prepareStatement(
-              "DELETE FROM books WHERE bookid=?");
-      statement.setInt(1, book.getId());
-      doUpdate(connection, statement);
-      success = true;
-
-    } catch (SQLException se) {
-      se.printStackTrace(System.err);
-    }
-    return success;
+    return orders;
   }
 }
