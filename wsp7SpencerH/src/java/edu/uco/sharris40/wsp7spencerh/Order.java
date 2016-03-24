@@ -5,4 +5,8 @@ import java.util.Map;
 public interface Order extends Map<Book, Integer> {
   int getId();
   void setId(int id);
+  int getSubtotal(Book book);
+  int getTotal();
+  String getSubtotalAsString(Book book);
+  String getTotalAsString();
 }
