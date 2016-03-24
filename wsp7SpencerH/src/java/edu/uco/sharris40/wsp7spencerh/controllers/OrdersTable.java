@@ -63,8 +63,8 @@ public class OrdersTable implements Serializable {
     if (connection == null)
       return false;
 
+    int orderid = 1;
     try {
-      int orderid;
       try {
         Statement orderStatement = connection.createStatement();
         ResultSet orderResult = orderStatement.executeQuery(
@@ -73,8 +73,6 @@ public class OrdersTable implements Serializable {
                   + "LIMIT 1");
         if (orderResult.next()) {
           orderid = orderResult.getInt(1);
-        } else {
-          orderid = 1;
         }
       } finally {
         lock.readLock().unlock();
@@ -106,6 +104,28 @@ public class OrdersTable implements Serializable {
         se.printStackTrace(System.err);
       }
       lock.writeLock().unlock();
+    }
+
+    lock.readLock().lock();
+    try {
+      PreparedStatement dateStatement = connection.prepareStatement(
+              "SELECT date FROM orders "
+                + "WHERE orderid = ? "
+                + "LIMIT 1");
+      dateStatement.setInt(1, orderid);
+      ResultSet dateResult = dateStatement.executeQuery();
+      if (!dateResult.next())
+          throw new SQLException("Could not retrieve order after submission.");
+      order.setDate(dateResult.getDate(1));
+    }catch (SQLException se) {
+      se.printStackTrace(System.err);
+    } finally {
+      try {
+        connection.close();
+      } catch (SQLException se) {
+        se.printStackTrace(System.err);
+      }
+      lock.readLock().unlock();
     }
     return success;
   }
