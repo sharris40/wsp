@@ -41,7 +41,6 @@ public class ShoppingCart implements Serializable {
     if (book == null)
       throw new IllegalArgumentException("book", new NullPointerException());
     boolean found = false;
-    System.out.println("Here");
     for (Map.Entry<Book, Integer> item : order.entrySet()) {
       if (item.getKey().equals(book)) {
         found = true;
