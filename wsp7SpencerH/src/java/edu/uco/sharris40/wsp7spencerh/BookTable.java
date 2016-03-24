@@ -89,6 +89,17 @@ public class BookTable implements Serializable {
     return success;
   }
 
+  public static Book createBookFromRow(ResultSet row) throws SQLException {
+    Book nextBook = new Book();
+    nextBook.setId(row.getInt("bookid"));
+    nextBook.setTitle(row.getNString("title"));
+    nextBook.setAuthor(row.getNString("author"));
+    nextBook.setPrice(row.getInt("price"));
+    nextBook.setPublicationYear(row.getInt("publicationYear"));
+    nextBook.setChanged(false);
+    return nextBook;
+  }
+
   public List<Book> readBooks() {
     LinkedList<Book> books = null;
     Connection connection = getConnection();
@@ -101,14 +112,7 @@ public class BookTable implements Serializable {
         ResultSet results = statement.executeQuery("SELECT * FROM books");
         cachedList = new LinkedList<>();
         while (results.next()) {
-          Book nextBook = new Book();
-          nextBook.setId(results.getInt("bookid"));
-          nextBook.setTitle(results.getNString("title"));
-          nextBook.setAuthor(results.getNString("author"));
-          nextBook.setPrice(results.getInt("price"));
-          nextBook.setPublicationYear(results.getInt("publicationYear"));
-          nextBook.setChanged(false);
-          cachedList.add(nextBook);
+          cachedList.add(createBookFromRow(results));
         }
       }
       books = new LinkedList<>();
