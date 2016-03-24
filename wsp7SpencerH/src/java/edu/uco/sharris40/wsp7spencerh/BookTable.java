@@ -18,13 +18,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @Named(value = "bookTable")
 @ApplicationScoped
 public class BookTable implements Serializable {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   @Resource(name="jdbc/WSP7")
   private DataSource ds;
 
   private volatile LinkedList<Book> cachedList = null;
-  private ReentrantReadWriteLock lock;
+  ReentrantReadWriteLock lock;
 
   public BookTable() {}
 
@@ -118,6 +118,11 @@ public class BookTable implements Serializable {
     } catch (SQLException | CloneNotSupportedException e) {
       e.printStackTrace(System.err);
     } finally {
+      try {
+        connection.close();
+      } catch (SQLException se) {
+        se.printStackTrace(System.err);
+      }
       lock.readLock().unlock();
     }
     return books;
