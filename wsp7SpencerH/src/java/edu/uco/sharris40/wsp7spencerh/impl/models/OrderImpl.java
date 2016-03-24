@@ -1,5 +1,7 @@
-package edu.uco.sharris40.wsp7spencerh;
+package edu.uco.sharris40.wsp7spencerh.impl.models;
 
+import edu.uco.sharris40.wsp7spencerh.models.Order;
+import edu.uco.sharris40.wsp7spencerh.models.Book;
 import java.util.HashMap;
 
 public class OrderImpl extends HashMap<Book, Integer> implements Order {

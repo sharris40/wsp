@@ -1,4 +1,4 @@
-package edu.uco.sharris40.wsp7spencerh;
+package edu.uco.sharris40.wsp7spencerh.models;
 
 import java.io.Serializable;
 import javax.validation.constraints.DecimalMax;

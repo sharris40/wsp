@@ -1,5 +1,6 @@
-package edu.uco.sharris40.wsp7spencerh;
+package edu.uco.sharris40.wsp7spencerh.controllers;
 
+import edu.uco.sharris40.wsp7spencerh.models.Book;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

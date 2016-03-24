@@ -1,6 +1,6 @@
+package edu.uco.sharris40.wsp7spencerh.controllers;
 
-package edu.uco.sharris40.wsp7spencerh;
-
+import edu.uco.sharris40.wsp7spencerh.models.Book;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;

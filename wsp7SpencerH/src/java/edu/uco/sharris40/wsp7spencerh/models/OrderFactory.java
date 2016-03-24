@@ -1,4 +1,6 @@
-package edu.uco.sharris40.wsp7spencerh;
+package edu.uco.sharris40.wsp7spencerh.models;
+
+import edu.uco.sharris40.wsp7spencerh.impl.models.OrderImpl;
 
 public class OrderFactory {
   private static final Class<OrderImpl> IMPLEMENTATION = OrderImpl.class;
