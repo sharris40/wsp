@@ -64,15 +64,32 @@ public class OrdersTable implements Serializable {
       return false;
 
     try {
+      int orderid;
+      try {
+        Statement orderStatement = connection.createStatement();
+        ResultSet orderResult = orderStatement.executeQuery(
+                "SELECT orderid FROM orders "
+                  + "ORDER BY orderid DESC"
+                  + "LIMIT 1");
+        if (orderResult.next()) {
+          orderid = orderResult.getInt(1);
+        } else {
+          orderid = 1;
+        }
+      } finally {
+        lock.readLock().unlock();
+      }
       PreparedStatement statement = connection.prepareStatement(
               "INSERT INTO orders(orderid, bookid, quantity) "
                   + "VALUES(?, ?, ?)");
       int rows;
       cachedList = null;
+      lock.readLock().lock();
+      lock.writeLock().lock();
       for (Map.Entry<Book, Integer> entry : order.entrySet()) {
-        statement.setInt(1, entry.getKey().getPrice());
-        statement.setInt(2, entry.getValue());
-        lock.writeLock().lock();
+        statement.setInt(1, orderid);
+        statement.setInt(2, entry.getKey().getId());
+        statement.setInt(3, entry.getValue());
         rows = statement.executeUpdate();
         if (rows != 1)
           throw new SQLException("Wrong number of rows generated; "
