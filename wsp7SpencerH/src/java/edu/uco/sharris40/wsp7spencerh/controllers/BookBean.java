@@ -15,7 +15,7 @@ public class BookBean implements Serializable {
   private static final long serialVersionUID = 2L;
 
   @Inject
-  private BookTable table;
+  private DatabaseController table;
 
   private List<Book> books;
   private LinkedList<Book> remove;

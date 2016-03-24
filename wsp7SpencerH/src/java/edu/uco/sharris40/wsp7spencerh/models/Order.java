@@ -7,6 +7,7 @@ public interface Order extends Map<Book, Integer>, Cloneable {
   int getId();
   void setId(int id);
   Date getDate();
+  String getDateString();
   void setDate(Date date);
   int getSubtotal(Book book);
   int getTotal();

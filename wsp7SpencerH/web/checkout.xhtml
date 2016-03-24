@@ -14,7 +14,7 @@
 
       <h:dataTable class='cart' rowClasses='odd,even'
                    value="#{shoppingCart.order.keySet().toArray()}" var="item">
-        <f:facet name="caption">The Contents of Shopping Cart</f:facet>
+        <f:facet name="caption">Your Order</f:facet>
         <h:column>
           <f:facet name="header">Title</f:facet>
           #{item.title}
@@ -39,7 +39,7 @@
       <p>TOTAL:
         <h:outputText value="#{shoppingCart.order.getTotalAsString()}"/></p>
       <p>Your order was placed on
-        <h:outputText value="#{shoppingCart.date}"/>.</p>
+        <h:outputText value="#{shoppingCart.order.getDate()}"/>.</p>
     </div>
   </h:body>
 </html>

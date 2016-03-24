@@ -46,7 +46,12 @@
   background-color: inherit;
 }
 
-table thead tr {
+table tr.odd {
+  background-color: antiquewhite;
+  color: black;
+}
+
+table tr.even, table thead tr {
   background-color: ivory;
   color: black;
 }

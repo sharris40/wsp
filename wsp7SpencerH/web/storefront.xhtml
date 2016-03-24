@@ -72,6 +72,7 @@
           <h:commandButton value="checkout" action="#{shoppingCart.checkout()}"
                            disabled="#{shoppingCart.order.isEmpty()}" />
       </h:form>
+      <p><h:link outcome="purchases">View purchase history</h:link> </p>
     </div>
   </h:body>
 </html>

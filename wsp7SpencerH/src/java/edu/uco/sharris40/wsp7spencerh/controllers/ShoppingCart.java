@@ -18,7 +18,7 @@ public class ShoppingCart implements Serializable {
   private static final long serialVersionUID = 2L;
 
   @Inject
-  private OrdersTable table;
+  private DatabaseController table;
 
   private Order order;
 
@@ -73,12 +73,5 @@ public class ShoppingCart implements Serializable {
       return "checkout";
     }
     return "error";
-  }
-
-  public String getDate() {
-    Date date = order.getDate();
-    if (date == null)
-      date = new Date();
-    return new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").format(date);
   }
 }

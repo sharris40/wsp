@@ -2,6 +2,7 @@ package edu.uco.sharris40.wsp7spencerh.impl.models;
 
 import edu.uco.sharris40.wsp7spencerh.models.Order;
 import edu.uco.sharris40.wsp7spencerh.models.Book;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,6 +70,14 @@ public class OrderImpl extends HashMap<Book, Integer> implements Order {
   @Override
   public void setDate(Date date) {
     this.date = date;
+  }
+
+  @Override
+  public String getDateString() {
+    Date currentDate = this.getDate();
+    if (currentDate == null)
+      currentDate = new Date();
+    return new SimpleDateFormat("YYYY-MM-DD HH:mm:ss").format(currentDate);
   }
 
 }

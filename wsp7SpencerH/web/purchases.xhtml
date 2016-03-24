@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  <h:head><meta charset="utf-8"/>
+    <title>Checkout</title>
+    <h:outputStylesheet library="Styles" name="books.css" />
+  </h:head>
+  <h:body>
+    <div class="contents">
+      <h1>Purchase History.</h1>
+      <hr/>
+      <c:forEach var="order" items="#{databaseController.readOrders()}">
+        <h:dataTable class='cart' rowClasses='odd,even'
+                     value="#{order.keySet().toArray()}" var="item">
+          <f:facet name="caption">Order <h:outputText value="#{order.getId()}"/>:
+            <h:outputText value="#{order.getDateString()}"/></f:facet>
+          <h:column>
+            <f:facet name="header">Title</f:facet>
+            #{item.title}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Author</f:facet>
+            #{item.author}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Unit Price ($)</f:facet>
+            #{item.dollarPrice}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Quantity</f:facet>
+            #{order[item]}
+          </h:column>
+          <h:column>
+            <f:facet name="header">Sub Total ($)</f:facet>
+            #{order.getSubtotalAsString(item)}
+          </h:column>
+        </h:dataTable>
+        <p>Total:
+          <h:outputText value="#{order.getTotalAsString()}"/></p>
+        <hr/>
+      </c:forEach>
+    </div>
+  </h:body>
+</html>
