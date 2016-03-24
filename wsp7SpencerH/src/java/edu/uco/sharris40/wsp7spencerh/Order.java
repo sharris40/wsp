@@ -1,0 +1,8 @@
+package edu.uco.sharris40.wsp7spencerh;
+
+import java.util.Map;
+
+public interface Order extends Map<Book, Integer> {
+  int getId();
+  void setId(int id);
+}
